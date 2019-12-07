@@ -1,7 +1,7 @@
 {
-  "name": "react-datatables",
+  "name": "react-imba-tables",
   "version": "0.0.1",
-  "description": "React component integrating the famous DataTables jQuery plugin",
+  "description": "React component wrapping the famous DataTables jQuery plugin.",
   "main": "lib/index.js",
   "module": "es/index.js",
   "files": [
@@ -32,7 +32,7 @@
     "name": "David Schoen",
     "email": "schoedav@goglemail.com"
   },
-  "homepage": "https://github.com/schoedav/react-datatables",
+  "homepage": "https://github.com/schoedav/react-imba-tables",
   "license": "MIT",
   "repository": "",
   "keywords": [
