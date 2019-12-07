@@ -1,4 +1,4 @@
-# react-datatables
+# react-imba-tables
 
 [![Travis][build-badge]][build]
 [![npm package][npm-badge]][npm]
