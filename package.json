@@ -28,8 +28,11 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0"
   },
-  "author": "",
-  "homepage": "",
+  "author": {
+    "name": "David Schoen",
+    "email": "schoedav@goglemail.com"
+  },
+  "homepage": "https://github.com/schoedav/react-datatables",
   "license": "MIT",
   "repository": "",
   "keywords": [
