@@ -1,7 +1,7 @@
 {
   "name": "react-datatables",
-  "version": "1.0.0",
-  "description": "react-datatables React component",
+  "version": "0.0.1",
+  "description": "React component integrating the famous DataTables jQuery plugin",
   "main": "lib/index.js",
   "module": "es/index.js",
   "files": [
