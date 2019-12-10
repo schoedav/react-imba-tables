@@ -1,6 +1,6 @@
 {
   "name": "react-imba-tables",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Easy to use react datatable component.",
   "source": "src/index.tsx",
   "main": "dist/index.js",
