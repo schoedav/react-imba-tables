@@ -5,6 +5,7 @@
 #[![Coveralls][coveralls-badge]][coveralls]-->
 
 [![npm version](https://badge.fury.io/js/react-imba-tables.svg)](https://badge.fury.io/js/react-imba-tables)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fschoedav%2Freact-imba-tables.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fschoedav%2Freact-imba-tables?ref=badge_shield)
 
 Flexible datatable component for `React`.
 
@@ -158,3 +159,7 @@ via `CDN`.
 
 [coveralls-badge]: https://img.shields.io/coveralls/user/repo/master.png?style=flat-square
 [coveralls]: https://coveralls.io/github/user/repo
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fschoedav%2Freact-imba-tables.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fschoedav%2Freact-imba-tables?ref=badge_large)
