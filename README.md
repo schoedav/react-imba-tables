@@ -44,7 +44,7 @@ Include the styles in your page. You will need the react-imba-tables styles from
 linked in your html head or via cdn:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/react-imba-tables@0.2.0/public/css/react-imba-tables.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/react-imba-tables@0.2.0/public/css/react-imba-tables.min.css">
 ```
 
 You will also want `Bootstrap 4` css in you page:
