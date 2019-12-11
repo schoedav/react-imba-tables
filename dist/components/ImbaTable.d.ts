@@ -7,6 +7,8 @@ interface State {
     page: number;
     rowsPerPage: number;
     searchText: string;
+    sortColId: number;
+    sortAsc: boolean;
 }
 interface Props {
     data: DataProps[];

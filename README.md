@@ -40,21 +40,37 @@ That's it :-)
 
 ## Usage
 
-Just import the components like
+Include the styles in your page. You will need the react-imba-tables styles from `/public/css/react-imba-tables.css`
+linked in your html head or via cdn:
 
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/react-imba-tables@0.2.0/public/css/react-imba-tables.css">
 ```
+
+You will also want `Bootstrap 4` css in you page:
+
+```html
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+```
+
+More infos about styling you can find under [Styling](#styling).
+
+Now you can import the components like
+
+```ecmascript 6
 import ImbaTable, {ImbaTableColumn} from 'react-imba-tables';
 ```
 
 and use them in your JSX
 
-```ts
+```jsx harmony
 <ImbaTable data={data}>
 
   <ImbaTableColumn
       id={1}
       field='id'
       label='#'
+      sortable={false}
   />
 
   <ImbaTableColumn
@@ -107,18 +123,32 @@ Renders a datatable.
 Defines a column in the datatable. Needs an `id` for updating purposes, a `field` to reference the
 data and a `label` to show in the column header.
 
-|     Prop     |   Description | Default | Example |
-|----------|-------------|---|---|
-| id (number) |  A unique identifier.  |  | 1 |
-| field (string) |  The name of the property in each object of the data-array whose value shall be rendered in this column.  |  | firstname |
-| label (string) |  The label to be used for this column in the head of the table.  |  | First name |
+|     Prop     |   Description | Default | Optional | Example |
+|----------|-------------|---|---|---|
+| id (number) |  A unique identifier.  |  |  | 1 |
+| field (string) |  The name of the property in each object of the data-array whose value shall be rendered in this column.  |  |  | firstname |
+| label (string) |  The label to be used for this column in the head of the table.  |  |  | First name |
+| sortable (boolean) | Defines if data can be sorted by this column. | true | yes | false
+
+## <a name="styling">Styling</a>
+
+Currently react-imba-tables uses `Bootstrap 4` markup and classes for styling. Future versions will
+provide customization possibilities as well as other Libraries like `Foundation` etc.
+
+So, if you wan't your table to look nice, dont't forget to include `Bootstrap 4` css for example
+via `CDN`.
+
+```html
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+```
 
 ## Coming Next
 
-* Sorting
-* Responsiveness
-* Content-Types for Table Cells (including custom rendering)
-* Examples
+* [X] Sorting
+* [ ] Responsiveness
+* [ ] Content-Types for Table Cells (including custom rendering)
+* [ ] Examples
+* [ ] Custom markup and styling possibilities
 
 [build-badge]: https://img.shields.io/travis/user/repo/master.png?style=flat-square
 [build]: https://travis-ci.org/user/repo

@@ -4,6 +4,7 @@ interface Props {
     id: number;
     field: string;
     label: string;
+    sortable?: boolean;
 }
 
 class ImbaTableColumn extends React.Component<Props> {

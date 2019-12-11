@@ -1,6 +1,7 @@
 import React, {ReactElement} from 'react'
 import ImbaTablePagination from "./ImbaTablePagination";
 import ImbaTableSearchField from "./ImbaTableSearchField";
+import ImbaTableColumnHeader from "./ImbaTableColumnHeader";
 
 interface DataProps {
     id: number;
@@ -10,6 +11,8 @@ interface State {
     page: number;
     rowsPerPage: number;
     searchText: string;
+    sortColId: number;
+    sortAsc: boolean;
 }
 
 interface Props {
@@ -26,6 +29,8 @@ class ImbaTable extends React.Component<Props, State> {
             page: 1,
             rowsPerPage: 5,
             searchText: '',
+            sortColId: 1,
+            sortAsc: true,
         }
     }
 
@@ -54,17 +59,34 @@ class ImbaTable extends React.Component<Props, State> {
             });
         }
 
+        // Sorting
+        const sortedData = filteredData.sort((row1: any, row2: any) => {
+            const sortCol = cols.find((col) => {
+                return col.props.id === this.state.sortColId;
+            });
+            if(!sortCol) {
+                return 0;
+            }
+            const sortField: string = sortCol.props.field;
+            if(row1[sortField] < row2[sortField]) {
+                return (this.state.sortAsc ? -1 : 1);
+            } else if(row1[sortField] > row2[sortField]) {
+                return (this.state.sortAsc ? 1 : -1);
+            }
+            return 0;
+        });
+
         // Paging
-        const pages = Math.ceil(filteredData.length / this.state.rowsPerPage);
+        const pages = Math.ceil(sortedData.length / this.state.rowsPerPage);
         const startIndex = (this.state.page-1) * this.state.rowsPerPage;
         let endIndex = startIndex + this.state.rowsPerPage;
         if (endIndex > data.length) {
             endIndex = data.length;
         }
-        const pagedData = filteredData.slice(startIndex, endIndex);
+        const pagedData = sortedData.slice(startIndex, endIndex);
 
         return (
-            <div>
+            <div className="react-imba-table">
                 <ImbaTableSearchField
                     onChange={ (searchText: string) => {
                         this.setState({searchText: searchText, page: 1});
@@ -74,7 +96,21 @@ class ImbaTable extends React.Component<Props, State> {
                 <table className="table table-striped">
                     <thead>
                     <tr>
-                        {cols.map((col: ReactElement) => <th scope="col" key={col.props.id}>{col.props.label}</th>)}
+                        {cols.map((col: ReactElement) => {
+                            return (
+                                <ImbaTableColumnHeader
+                                    id={col.props.id}
+                                    key={col.props.id}
+                                    label={col.props.label}
+                                    sortable={col.props.sortable}
+                                    sortColId={this.state.sortColId}
+                                    sortAsc={this.state.sortAsc}
+                                    onClick={(sortColId: number, sortAsc: boolean) => {
+                                        this.setState({sortColId: col.props.id, sortAsc: sortAsc})
+                                    }}
+                                />
+                            );
+                        })}
                     </tr>
                     </thead>
                     <tbody>
