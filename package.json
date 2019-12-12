@@ -2,21 +2,27 @@
   "name": "react-imba-tables",
   "version": "0.2.0",
   "description": "Easy to use react datatable component.",
-  "source": "src/index.tsx",
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
+  "source": "src/main/index.ts",
+  "main": "dist/commonjs/index.js",
+  "module": "dist/es/index.mjs",
   "scripts": {
-    "build": "microbundle build --jsx react",
-    "dev": "microbundle watch --jsx react"
+    "build": "yarn build:commonjs && yarn build:es",
+    "build:commonjs": "gulp",
+    "build:es": "gulp es",
+    "test": ""
   },
   "dependencies": {
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
-    "microbundle": "^0.11.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "gulp": "4.0.0",
+    "gulp-typescript": "^6.0.0-alpha.1",
+    "merge2": "^1.3.0",
+    "typescript": "^3.7.3"
+  },
   "author": {
     "name": "David Schoen",
     "email": "schoedav@goglemail.com"
