@@ -16,7 +16,7 @@ interface State {
 }
 
 interface Props {
-    data: DataProps[];
+    data: any[];
     children: ReactElement[];
 }
 
