@@ -49,7 +49,7 @@ linked in your html head or via cdn:
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/react-imba-tables@0.2.0/public/css/react-imba-tables.min.css">
 ```
 
-You will also want `Bootstrap 4` css in you page:
+You will also want `Bootstrap 4` css in your page:
 
 ```html
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
