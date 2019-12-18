@@ -1,8 +1,5 @@
 import React, {ReactElement} from 'react';
 
-interface DataProps {
-    id: number;
-}
 interface State {
     page: number;
     rowsPerPage: number;
@@ -11,7 +8,7 @@ interface State {
     sortAsc: boolean;
 }
 interface Props {
-    data: DataProps[];
+    data: any[];
     children: ReactElement[];
 }
 declare class ImbaTable extends React.Component<Props, State> {
