@@ -13,16 +13,16 @@ var __extends = (this && this.__extends) || (function () {
 })();
 import React from 'react';
 
-var ImbaTableSearchField = /** @class */ (function (_super) {
-    __extends(ImbaTableSearchField, _super);
-    function ImbaTableSearchField() {
+var SearchField = /** @class */ (function (_super) {
+    __extends(SearchField, _super);
+    function SearchField() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    ImbaTableSearchField.prototype.render = function () {
+    SearchField.prototype.render = function () {
         var _this = this;
         return (React.createElement("div", null,
             React.createElement("input", { type: "email", className: "form-control", placeholder: "Search...", onChange: function (event) { _this.props.onChange(event.target.value); } })));
     };
-    return ImbaTableSearchField;
+    return SearchField;
 }(React.Component));
-export default ImbaTableSearchField;
+export default SearchField;

@@ -9,7 +9,7 @@ interface Props {
     onClick: (sortColId: number, sortAsc: boolean) => void;
 }
 
-const ImbaTableColumnHeader: React.FunctionComponent<Props> = ({id, label, sortable, sortColId, sortAsc, onClick}) => {
+const ColumnHeader: React.FunctionComponent<Props> = ({id, label, sortable, sortColId, sortAsc, onClick}) => {
 
     const clickCallback = () => {
         if(sortColId === id) {
@@ -31,4 +31,4 @@ const ImbaTableColumnHeader: React.FunctionComponent<Props> = ({id, label, sorta
     return <th scope="col">{label}</th>
 };
 
-export default ImbaTableColumnHeader;
+export default ColumnHeader;

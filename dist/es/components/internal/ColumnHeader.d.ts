@@ -8,5 +8,5 @@ interface Props {
     sortAsc: boolean;
     onClick: (sortColId: number, sortAsc: boolean) => void;
 }
-declare const ImbaTableColumnHeader: React.FunctionComponent<Props>;
-export default ImbaTableColumnHeader;
+declare const ColumnHeader: React.FunctionComponent<Props>;
+export default ColumnHeader;

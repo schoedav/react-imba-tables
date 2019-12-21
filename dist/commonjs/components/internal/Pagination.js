@@ -17,12 +17,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(require("react"));
-var ImbaTablePagination = /** @class */ (function (_super) {
-    __extends(ImbaTablePagination, _super);
-    function ImbaTablePagination() {
+var Pagination = /** @class */ (function (_super) {
+    __extends(Pagination, _super);
+    function Pagination() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    ImbaTablePagination.prototype.renderPageButtons = function () {
+    Pagination.prototype.renderPageButtons = function () {
         var _this = this;
         return Array.from(Array(this.props.pages).keys()).map(function (pageNumber, index) {
             var isActive = (pageNumber + 1 === _this.props.currentPage ? ' active' : '');
@@ -30,7 +30,7 @@ var ImbaTablePagination = /** @class */ (function (_super) {
                 react_1.default.createElement("a", { className: "page-link", href: "#" }, pageNumber + 1)));
         });
     };
-    ImbaTablePagination.prototype.render = function () {
+    Pagination.prototype.render = function () {
         var _this = this;
         var prevDisabled = (this.props.currentPage <= 1 ? ' disabled' : '');
         var nextDisabled = (this.props.currentPage >= this.props.pages ? ' disabled' : '');
@@ -43,6 +43,6 @@ var ImbaTablePagination = /** @class */ (function (_super) {
                     react_1.default.createElement("li", { className: "page-item" + nextDisabled, onClick: function () { _this.props.onNext(); } },
                         react_1.default.createElement("a", { className: "page-link", href: "#" }, "Next"))))));
     };
-    return ImbaTablePagination;
+    return Pagination;
 }(react_1.default.Component));
-exports.default = ImbaTablePagination;
+exports.default = Pagination;

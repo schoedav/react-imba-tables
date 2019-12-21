@@ -8,7 +8,7 @@ interface Props {
     onNext: () => void;
 }
 
-class ImbaTablePagination extends React.Component<Props> {
+class Pagination extends React.Component<Props> {
 
     renderPageButtons() {
         return Array.from(Array(this.props.pages).keys()).map((pageNumber, index) => {
@@ -46,4 +46,4 @@ class ImbaTablePagination extends React.Component<Props> {
     }
 }
 
-export default ImbaTablePagination;
+export default Pagination;

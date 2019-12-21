@@ -4,7 +4,7 @@ interface Props {
     onChange: (text: string) => void;
 }
 
-class ImbaTableSearchField extends React.Component<Props> {
+class SearchField extends React.Component<Props> {
 
     render() {
 
@@ -21,4 +21,4 @@ class ImbaTableSearchField extends React.Component<Props> {
     }
 }
 
-export default ImbaTableSearchField;
+export default SearchField;

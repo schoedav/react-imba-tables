@@ -1,7 +1,8 @@
 import React, {ReactElement} from 'react'
-import ImbaTablePagination from "./ImbaTablePagination";
-import ImbaTableSearchField from "./ImbaTableSearchField";
-import ImbaTableColumnHeader from "./ImbaTableColumnHeader";
+import SearchField from "../internal/SearchField";
+import Pagination from "../internal/Pagination";
+import ColumnHeader from "../internal/ColumnHeader";
+import Cell from "../internal/Cell";
 
 interface DataProps {
     id: number;
@@ -87,7 +88,7 @@ class ImbaTable extends React.Component<Props, State> {
 
         return (
             <div className="react-imba-table">
-                <ImbaTableSearchField
+                <SearchField
                     onChange={ (searchText: string) => {
                         this.setState({searchText: searchText, page: 1});
                     }}
@@ -98,7 +99,7 @@ class ImbaTable extends React.Component<Props, State> {
                     <tr>
                         {cols.map((col: ReactElement) => {
                             return (
-                                <ImbaTableColumnHeader
+                                <ColumnHeader
                                     id={col.props.id}
                                     key={col.props.id}
                                     label={col.props.label}
@@ -115,12 +116,12 @@ class ImbaTable extends React.Component<Props, State> {
                     </thead>
                     <tbody>
                         {pagedData.map((row: any) => <tr key={row.id}>
-                            {cols.map((col: ReactElement) => <td key={col.props.id}>{row[col.props.field]}</td>)}
+                            {cols.map((col: ReactElement) => <Cell key={col.props.id} columnProps={col.props} data={row[col.props.field]} />)}
                         </tr>)}
                     </tbody>
                 </table>
 
-                <ImbaTablePagination
+                <Pagination
                     pages={pages}
                     currentPage={this.state.page}
                     onPageSelected={(page: number) => {

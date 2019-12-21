@@ -1,5 +1,6 @@
-import ImbaTable from "./components/ImbaTable";
-import ImbaTableColumn from "./components/ImbaTableColumn";
+import ImbaTable from "./components/external/ImbaTable";
+import ImbaTableColumn from "./components/external/ImbaTableColumn";
+import ImbaTableContentType from "./enums/ImbaTableContentType";
 
-export { ImbaTableColumn };
+export { ImbaTableColumn, ImbaTableContentType };
 export default ImbaTable;

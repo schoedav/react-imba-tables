@@ -17,9 +17,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(require("react"));
-var ImbaTablePagination_1 = __importDefault(require("./ImbaTablePagination"));
-var ImbaTableSearchField_1 = __importDefault(require("./ImbaTableSearchField"));
-var ImbaTableColumnHeader_1 = __importDefault(require("./ImbaTableColumnHeader"));
+var SearchField_1 = __importDefault(require("../internal/SearchField"));
+var Pagination_1 = __importDefault(require("../internal/Pagination"));
+var ColumnHeader_1 = __importDefault(require("../internal/ColumnHeader"));
+var Cell_1 = __importDefault(require("../internal/Cell"));
 var ImbaTable = /** @class */ (function (_super) {
     __extends(ImbaTable, _super);
     function ImbaTable(props) {
@@ -80,18 +81,18 @@ var ImbaTable = /** @class */ (function (_super) {
         }
         var pagedData = sortedData.slice(startIndex, endIndex);
         return (react_1.default.createElement("div", { className: "react-imba-table" },
-            react_1.default.createElement(ImbaTableSearchField_1.default, { onChange: function (searchText) {
+            react_1.default.createElement(SearchField_1.default, { onChange: function (searchText) {
                     _this.setState({ searchText: searchText, page: 1 });
                 } }),
             react_1.default.createElement("table", { className: "table table-striped" },
                 react_1.default.createElement("thead", null,
                     react_1.default.createElement("tr", null, cols.map(function (col) {
-                        return (react_1.default.createElement(ImbaTableColumnHeader_1.default, { id: col.props.id, key: col.props.id, label: col.props.label, sortable: col.props.sortable, sortColId: _this.state.sortColId, sortAsc: _this.state.sortAsc, onClick: function (sortColId, sortAsc) {
+                        return (react_1.default.createElement(ColumnHeader_1.default, { id: col.props.id, key: col.props.id, label: col.props.label, sortable: col.props.sortable, sortColId: _this.state.sortColId, sortAsc: _this.state.sortAsc, onClick: function (sortColId, sortAsc) {
                                 _this.setState({ sortColId: col.props.id, sortAsc: sortAsc });
                             } }));
                     }))),
-                react_1.default.createElement("tbody", null, pagedData.map(function (row) { return react_1.default.createElement("tr", { key: row.id }, cols.map(function (col) { return react_1.default.createElement("td", { key: col.props.id }, row[col.props.field]); })); }))),
-            react_1.default.createElement(ImbaTablePagination_1.default, { pages: pages, currentPage: this.state.page, onPageSelected: function (page) {
+                react_1.default.createElement("tbody", null, pagedData.map(function (row) { return react_1.default.createElement("tr", { key: row.id }, cols.map(function (col) { return react_1.default.createElement(Cell_1.default, { key: col.props.id, columnProps: col.props, data: row[col.props.field] }); })); }))),
+            react_1.default.createElement(Pagination_1.default, { pages: pages, currentPage: this.state.page, onPageSelected: function (page) {
                     _this.setState({ page: page });
                 }, onPrevious: function () {
                     if (_this.state.page > 1) {

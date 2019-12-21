@@ -1,6 +1,6 @@
 {
   "name": "react-imba-tables",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Easy to use react datatable component.",
   "source": "src/main/index.ts",
   "main": "dist/commonjs/index.js",
@@ -21,7 +21,10 @@
     "enzyme-to-json": "^3.4.3",
     "gulp-clean": "^0.4.0",
     "gulp-rename": "^2.0.0",
+    "gulp-sass": "^4.0.2",
     "jest": "^24.9.0",
+    "moment": "^2.24.0",
+    "node-sass": "^4.13.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "ts-jest": "^24.2.0"

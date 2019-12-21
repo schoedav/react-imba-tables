@@ -7,8 +7,8 @@ interface Props {
     onPrevious: () => void;
     onNext: () => void;
 }
-declare class ImbaTablePagination extends React.Component<Props> {
+declare class Pagination extends React.Component<Props> {
     renderPageButtons(): JSX.Element[];
     render(): JSX.Element;
 }
-export default ImbaTablePagination;
+export default Pagination;

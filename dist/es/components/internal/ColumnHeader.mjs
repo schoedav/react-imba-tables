@@ -1,6 +1,6 @@
 import React from 'react';
 
-var ImbaTableColumnHeader = function (_a) {
+var ColumnHeader = function (_a) {
     var id = _a.id, label = _a.label, sortable = _a.sortable, sortColId = _a.sortColId, sortAsc = _a.sortAsc, onClick = _a.onClick;
     var clickCallback = function () {
         if (sortColId === id) {
@@ -21,4 +21,4 @@ var ImbaTableColumnHeader = function (_a) {
     }
     return React.createElement("th", { scope: "col" }, label);
 };
-export default ImbaTableColumnHeader;
+export default ColumnHeader;

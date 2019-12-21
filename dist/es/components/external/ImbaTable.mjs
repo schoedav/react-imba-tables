@@ -12,9 +12,10 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 import React from 'react';
-import ImbaTablePagination from "./ImbaTablePagination";
-import ImbaTableSearchField from "./ImbaTableSearchField";
-import ImbaTableColumnHeader from "./ImbaTableColumnHeader";
+import SearchField from "../internal/SearchField";
+import Pagination from "../internal/Pagination";
+import ColumnHeader from "../internal/ColumnHeader";
+import Cell from "../internal/Cell";
 
 var ImbaTable = /** @class */ (function (_super) {
     __extends(ImbaTable, _super);
@@ -76,18 +77,18 @@ var ImbaTable = /** @class */ (function (_super) {
         }
         var pagedData = sortedData.slice(startIndex, endIndex);
         return (React.createElement("div", { className: "react-imba-table" },
-            React.createElement(ImbaTableSearchField, { onChange: function (searchText) {
+            React.createElement(SearchField, { onChange: function (searchText) {
                     _this.setState({ searchText: searchText, page: 1 });
                 } }),
             React.createElement("table", { className: "table table-striped" },
                 React.createElement("thead", null,
                     React.createElement("tr", null, cols.map(function (col) {
-                        return (React.createElement(ImbaTableColumnHeader, { id: col.props.id, key: col.props.id, label: col.props.label, sortable: col.props.sortable, sortColId: _this.state.sortColId, sortAsc: _this.state.sortAsc, onClick: function (sortColId, sortAsc) {
+                        return (React.createElement(ColumnHeader, { id: col.props.id, key: col.props.id, label: col.props.label, sortable: col.props.sortable, sortColId: _this.state.sortColId, sortAsc: _this.state.sortAsc, onClick: function (sortColId, sortAsc) {
                                 _this.setState({ sortColId: col.props.id, sortAsc: sortAsc });
                             } }));
                     }))),
-                React.createElement("tbody", null, pagedData.map(function (row) { return React.createElement("tr", { key: row.id }, cols.map(function (col) { return React.createElement("td", { key: col.props.id }, row[col.props.field]); })); }))),
-            React.createElement(ImbaTablePagination, { pages: pages, currentPage: this.state.page, onPageSelected: function (page) {
+                React.createElement("tbody", null, pagedData.map(function (row) { return React.createElement("tr", { key: row.id }, cols.map(function (col) { return React.createElement(Cell, { key: col.props.id, columnProps: col.props, data: row[col.props.field] }); })); }))),
+            React.createElement(Pagination, { pages: pages, currentPage: this.state.page, onPageSelected: function (page) {
                     _this.setState({ page: page });
                 }, onPrevious: function () {
                     if (_this.state.page > 1) {

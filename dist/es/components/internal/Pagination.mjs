@@ -13,12 +13,12 @@ var __extends = (this && this.__extends) || (function () {
 })();
 import React from 'react';
 
-var ImbaTablePagination = /** @class */ (function (_super) {
-    __extends(ImbaTablePagination, _super);
-    function ImbaTablePagination() {
+var Pagination = /** @class */ (function (_super) {
+    __extends(Pagination, _super);
+    function Pagination() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    ImbaTablePagination.prototype.renderPageButtons = function () {
+    Pagination.prototype.renderPageButtons = function () {
         var _this = this;
         return Array.from(Array(this.props.pages).keys()).map(function (pageNumber, index) {
             var isActive = (pageNumber + 1 === _this.props.currentPage ? ' active' : '');
@@ -26,7 +26,7 @@ var ImbaTablePagination = /** @class */ (function (_super) {
                 React.createElement("a", { className: "page-link", href: "#" }, pageNumber + 1)));
         });
     };
-    ImbaTablePagination.prototype.render = function () {
+    Pagination.prototype.render = function () {
         var _this = this;
         var prevDisabled = (this.props.currentPage <= 1 ? ' disabled' : '');
         var nextDisabled = (this.props.currentPage >= this.props.pages ? ' disabled' : '');
@@ -39,6 +39,6 @@ var ImbaTablePagination = /** @class */ (function (_super) {
                     React.createElement("li", { className: "page-item" + nextDisabled, onClick: function () { _this.props.onNext(); } },
                         React.createElement("a", { className: "page-link", href: "#" }, "Next"))))));
     };
-    return ImbaTablePagination;
+    return Pagination;
 }(React.Component));
-export default ImbaTablePagination;
+export default Pagination;
