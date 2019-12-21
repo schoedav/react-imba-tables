@@ -2,13 +2,13 @@
   "name": "react-imba-tables",
   "version": "0.3.0",
   "description": "Easy to use react datatable component.",
-  "source": "src/main/index.ts",
-  "main": "dist/commonjs/index.js",
-  "module": "dist/es/index.mjs",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "files": ["dist"],
+  "types": "dist/index.d.ts",
   "scripts": {
-    "build": "yarn build:commonjs",
-    "build:commonjs": "gulp",
-    "build:es": "gulp es",
+    "build": "rollup -c",
+    "watch": "rollup -cw",
     "test": "jest"
   },
   "dependencies": {
@@ -27,9 +27,14 @@
     "node-sass": "^4.13.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "rollup": "^1.27.13",
+    "rollup-plugin-typescript2": "^0.25.3",
     "ts-jest": "^24.2.0"
   },
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-es2015": "^6.24.1",
+    "babelify": "8",
     "browserify": "^16.5.0",
     "gulp": "4.0.0",
     "gulp-sourcemaps": "^2.6.5",

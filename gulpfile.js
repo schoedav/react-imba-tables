@@ -14,9 +14,6 @@ const sass = require('gulp-sass');
 const tsProjectCommonjs = ts.createProject('tsconfig.json', {
     module: 'commonjs'
 });
-const tsProjectES6 = ts.createProject('tsconfig.json', {
-    module: 'es6',
-});
 
 gulp.task('buildCommonJS', function() {
     const tsResult = gulp.src(['src/main/**/*.ts', 'src/main/**/*.tsx'])
@@ -28,27 +25,17 @@ gulp.task('buildCommonJS', function() {
     ]);
 });
 
-gulp.task('buildES', function() {
+gulp.task('commonjs', function () {
     const tsResult = gulp.src(['src/main/**/*.ts', 'src/main/**/*.tsx'])
-        .pipe(tsProjectES6());
-
-    return merge([
-        tsResult.dts.pipe(gulp.dest('dist/es')),
-        tsResult.js.pipe(gulp.dest('dist/es'))
-    ]);
-});
-
-gulp.task('renameMJS', function() {
-    return gulp.src("dist/es/**/*.js")
-        .pipe(rename(function (path) {
-            path.extname = ".mjs";
-        }))
-        .pipe(gulp.dest("dist/es"));
-});
-
-gulp.task('deleteJSFilesInESModule', function() {
-    return gulp.src("dist/es/**/*.js", {read: false})
-        .pipe(clean());
+        .pipe(ts({
+            typescript: typescript,
+            module: 'commonjs',
+            experimentalDecorators: true,
+            emitDecoratorMetadata: true,
+            declarationFiles: true,
+            target: 'es5',
+            noImplicitAny: true
+        }));
 });
 
 gulp.task('sass', function () {
@@ -80,7 +67,7 @@ gulp.task('clean', gulp.parallel('cleanDistFolder', 'cleanBuiltFilesInSrcFolder'
 
 gulp.task('default', gulp.series('watch'));
 
-gulp.task('build', gulp.series(gulp.parallel('buildCommonJS', 'buildES'), 'renameMJS', 'deleteJSFilesInESModule', 'sass'));
+gulp.task('build', gulp.series(gulp.parallel('buildCommonJS'), 'sass'));
 
 gulp.task('examples', function () {
 return browserify({
