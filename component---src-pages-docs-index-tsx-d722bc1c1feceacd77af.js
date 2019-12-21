@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[2],{e7k3:function(e,t,n){"use strict";n.r(t);var a=n("q1tI"),c=n("bx7e"),l=n("TJpk"),o=n.n(l),r=n("aqas");t.default=function(){return a.createElement(c.a,null,a.createElement(o.a,{title:"react-imba-tables docs: Docs",defer:!1}),a.createElement(r.a,{title:"Docs"}),a.createElement("p",null,"Coming soon..."))}}}]);
+//# sourceMappingURL=component---src-pages-docs-index-tsx-d722bc1c1feceacd77af.js.map
