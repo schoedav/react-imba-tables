@@ -1,9 +1,2 @@
 .idea
-tmp
-/node_modules
-npm-debug.log*
-__snapshots__
-examples/bundle.*
-/src/**/*.js
-/src/**/*.d.ts
 .DS_Store
