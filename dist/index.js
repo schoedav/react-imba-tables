@@ -4,79 +4,9 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
-var React = _interopDefault(require('react'));
+var React = require('react');
+var React__default = _interopDefault(React);
 var moment = _interopDefault(require('moment'));
-
-/*! *****************************************************************************
-Copyright (c) Microsoft Corporation. All rights reserved.
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-this file except in compliance with the License. You may obtain a copy of the
-License at http://www.apache.org/licenses/LICENSE-2.0
-
-THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-MERCHANTABLITY OR NON-INFRINGEMENT.
-
-See the Apache Version 2.0 License for specific language governing permissions
-and limitations under the License.
-***************************************************************************** */
-/* global Reflect, Promise */
-
-var extendStatics = function(d, b) {
-    extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return extendStatics(d, b);
-};
-
-function __extends(d, b) {
-    extendStatics(d, b);
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-}
-
-var SearchField = /** @class */ (function (_super) {
-    __extends(SearchField, _super);
-    function SearchField() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    SearchField.prototype.render = function () {
-        var _this = this;
-        return (React.createElement("div", null,
-            React.createElement("input", { type: "email", className: "form-control", placeholder: "Search...", onChange: function (event) { _this.props.onChange(event.target.value); } })));
-    };
-    return SearchField;
-}(React.Component));
-
-var Pagination = /** @class */ (function (_super) {
-    __extends(Pagination, _super);
-    function Pagination() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    Pagination.prototype.renderPageButtons = function () {
-        var _this = this;
-        return Array.from(Array(this.props.pages).keys()).map(function (pageNumber, index) {
-            var isActive = (pageNumber + 1 === _this.props.currentPage ? ' active' : '');
-            return (React.createElement("li", { key: index, className: "page-item" + isActive, onClick: function () { _this.props.onPageSelected(pageNumber + 1); } },
-                React.createElement("a", { className: "page-link", href: "#" }, pageNumber + 1)));
-        });
-    };
-    Pagination.prototype.render = function () {
-        var _this = this;
-        var prevDisabled = (this.props.currentPage <= 1 ? ' disabled' : '');
-        var nextDisabled = (this.props.currentPage >= this.props.pages ? ' disabled' : '');
-        return (React.createElement("div", null,
-            React.createElement("nav", { "aria-label": "Page navigation example" },
-                React.createElement("ul", { className: "pagination" },
-                    React.createElement("li", { className: "page-item" + prevDisabled, onClick: function () { _this.props.onPrevious(); } },
-                        React.createElement("a", { className: "page-link", href: "#" }, "Previous")),
-                    this.renderPageButtons(),
-                    React.createElement("li", { className: "page-item" + nextDisabled, onClick: function () { _this.props.onNext(); } },
-                        React.createElement("a", { className: "page-link", href: "#" }, "Next"))))));
-    };
-    return Pagination;
-}(React.Component));
 
 var ColumnHeader = function (_a) {
     var id = _a.id, label = _a.label, sortable = _a.sortable, sortColId = _a.sortColId, sortAsc = _a.sortAsc, onClick = _a.onClick;
@@ -91,13 +21,13 @@ var ColumnHeader = function (_a) {
     if (sortable === undefined || sortable) {
         if (sortColId === id) {
             if (sortAsc) {
-                return React.createElement("th", { onClick: clickCallback, scope: "col", className: "sortable asc" }, label);
+                return React__default.createElement("th", { onClick: clickCallback, scope: "col", className: "sortable asc" }, label);
             }
-            return React.createElement("th", { onClick: clickCallback, scope: "col", className: "sortable desc" }, label);
+            return React__default.createElement("th", { onClick: clickCallback, scope: "col", className: "sortable desc" }, label);
         }
-        return React.createElement("th", { onClick: clickCallback, scope: "col", className: "sortable" }, label);
+        return React__default.createElement("th", { onClick: clickCallback, scope: "col", className: "sortable" }, label);
     }
-    return React.createElement("th", { scope: "col" }, label);
+    return React__default.createElement("th", { scope: "col" }, label);
 };
 
 var ImbaTableContentType;
@@ -128,114 +58,180 @@ var Cell = function (_a) {
     if (contentType !== null && contentType !== undefined) {
         switch (contentType) {
             case ImbaTableContentType$1.Date:
-                return React.createElement("td", null, formatDate(data));
+                return React__default.createElement("td", null, formatDate(data));
             default:
-                return React.createElement("td", null, formatRaw(data));
+                return React__default.createElement("td", null, formatRaw(data));
         }
     }
-    return (React.createElement("td", null, data));
+    return (React__default.createElement("td", null, data));
 };
 
-var ImbaTable = /** @class */ (function (_super) {
-    __extends(ImbaTable, _super);
-    function ImbaTable(props) {
-        var _this = _super.call(this, props) || this;
-        _this.state = {
-            page: 1,
-            rowsPerPage: 5,
-            searchText: '',
-            sortColId: 1,
-            sortAsc: true,
-        };
-        return _this;
-    }
-    ImbaTable.prototype.componentDidUpdate = function (prevProps, prevState, snapshot) {
-        if (prevProps.data.length !== this.props.data.length) {
-            this.setState({ page: 1 });
-        }
-    };
-    ImbaTable.prototype.render = function () {
-        var _this = this;
-        var _a = this.props, children = _a.children, data = _a.data;
-        var cols = children.filter(function (child) {
-            return !(!child.props || !child.props.field || !child.props.label);
+var Pagination = function (_a) {
+    var pages = _a.pages, currentPage = _a.currentPage, onPageSelected = _a.onPageSelected, onPrevious = _a.onPrevious, onNext = _a.onNext;
+    var renderPageButtons = function () {
+        return Array.from(Array(pages).keys()).map(function (pageNumber, index) {
+            var isActive = (pageNumber + 1 === currentPage ? ' active' : '');
+            return (React__default.createElement("li", { key: index, className: "page-item" + isActive, onClick: function () { onPageSelected(pageNumber + 1); } },
+                React__default.createElement("a", { className: "page-link", href: "#" }, pageNumber + 1)));
         });
-        // Filtering
-        var filteredData = data;
-        if (this.state.searchText.length > 0) {
-            filteredData = data.filter(function (row) {
-                return Object.keys(row).find(function (key) {
-                    var value = row[key].toString();
-                    return (value.toLowerCase().indexOf(_this.state.searchText.toLocaleLowerCase()) !== -1);
-                });
-            });
-        }
-        // Sorting
-        var sortedData = filteredData.sort(function (row1, row2) {
-            var sortCol = cols.find(function (col) {
-                return col.props.id === _this.state.sortColId;
-            });
-            if (!sortCol) {
-                return 0;
-            }
-            var sortField = sortCol.props.field;
-            if (row1[sortField] < row2[sortField]) {
-                return (_this.state.sortAsc ? -1 : 1);
-            }
-            else if (row1[sortField] > row2[sortField]) {
-                return (_this.state.sortAsc ? 1 : -1);
-            }
-            return 0;
-        });
-        // Paging
-        var pages = Math.ceil(sortedData.length / this.state.rowsPerPage);
-        var startIndex = (this.state.page - 1) * this.state.rowsPerPage;
-        var endIndex = startIndex + this.state.rowsPerPage;
-        if (endIndex > data.length) {
-            endIndex = data.length;
-        }
-        var pagedData = sortedData.slice(startIndex, endIndex);
-        return (React.createElement("div", { className: "react-imba-table" },
-            React.createElement(SearchField, { onChange: function (searchText) {
-                    _this.setState({ searchText: searchText, page: 1 });
-                } }),
-            React.createElement("table", { className: "table table-striped" },
-                React.createElement("thead", null,
-                    React.createElement("tr", null, cols.map(function (col) {
-                        return (React.createElement(ColumnHeader, { id: col.props.id, key: col.props.id, label: col.props.label, sortable: col.props.sortable, sortColId: _this.state.sortColId, sortAsc: _this.state.sortAsc, onClick: function (sortColId, sortAsc) {
-                                _this.setState({ sortColId: col.props.id, sortAsc: sortAsc });
-                            } }));
-                    }))),
-                React.createElement("tbody", null, pagedData.map(function (row) { return React.createElement("tr", { key: row.id }, cols.map(function (col) { return React.createElement(Cell, { key: col.props.id, columnProps: col.props, data: row[col.props.field] }); })); }))),
-            React.createElement(Pagination, { pages: pages, currentPage: this.state.page, onPageSelected: function (page) {
-                    _this.setState({ page: page });
-                }, onPrevious: function () {
-                    if (_this.state.page > 1) {
-                        _this.setState({ page: _this.state.page - 1 });
-                    }
-                }, onNext: function () {
-                    if (_this.state.page < pages) {
-                        _this.setState({ page: _this.state.page + 1 });
-                    }
-                } }),
-            "Showing Page ",
-            this.state.page,
-            " of ",
-            pages));
     };
-    return ImbaTable;
-}(React.Component));
+    var prevDisabled = (currentPage <= 1 ? ' disabled' : '');
+    var nextDisabled = (currentPage >= pages ? ' disabled' : '');
+    return (React__default.createElement(React__default.Fragment, null,
+        React__default.createElement("nav", { "aria-label": "Page navigation example" },
+            React__default.createElement("ul", { className: "pagination justify-content-end" },
+                React__default.createElement("li", { className: "page-item" + prevDisabled, onClick: function () { onPrevious(); } },
+                    React__default.createElement("a", { className: "page-link", href: "#" }, "Previous")),
+                renderPageButtons(),
+                React__default.createElement("li", { className: "page-item" + nextDisabled, onClick: function () { onNext(); } },
+                    React__default.createElement("a", { className: "page-link", href: "#" }, "Next"))))));
+};
 
-var ImbaTableColumn = /** @class */ (function (_super) {
-    __extends(ImbaTableColumn, _super);
-    function ImbaTableColumn() {
-        return _super !== null && _super.apply(this, arguments) || this;
+var BottomRow = function (_a) {
+    var pages = _a.pages, currentPage = _a.currentPage, onPageSelected = _a.onPageSelected, onPrevious = _a.onPrevious, onNext = _a.onNext, startIndex = _a.startIndex, endIndex = _a.endIndex, numberOfEntries = _a.numberOfEntries;
+    return (React__default.createElement("div", { className: "row" },
+        React__default.createElement("div", { className: "col mb-3" },
+            "Showing ",
+            startIndex,
+            " to ",
+            endIndex,
+            " of ",
+            numberOfEntries,
+            " entries"),
+        React__default.createElement("div", { className: "col mb-3" },
+            React__default.createElement(Pagination, { pages: pages, currentPage: currentPage, onPageSelected: onPageSelected, onPrevious: onPrevious, onNext: onNext }))));
+};
+
+var SearchField = function (_a) {
+    var onChange = _a.onChange;
+    return (React__default.createElement("div", null,
+        React__default.createElement("input", { type: "email", className: "form-control", placeholder: "Search...", onChange: function (event) { onChange(event.target.value); } })));
+};
+
+var RowsPerPageSelect = function (_a) {
+    var onChange = _a.onChange;
+    var _b = React.useState(5), selectedOption = _b[0], setSelectedOption = _b[1];
+    var options = [{
+            id: 1,
+            text: '5',
+            value: 5,
+        }, {
+            id: 2,
+            text: '10',
+            value: 10,
+        }, {
+            id: 3,
+            text: '50',
+            value: 50,
+        }, {
+            id: 4,
+            text: 'All',
+            value: 0,
+        }];
+    return (React__default.createElement("form", { className: "form-inline" },
+        React__default.createElement("p", { className: "my-1 mr-2" }, "Show"),
+        React__default.createElement("select", { className: "custom-select my-1 mr-sm-2", value: selectedOption, onChange: function (event) {
+                var value = parseInt(event.target.value);
+                setSelectedOption(value);
+                onChange(value);
+            } }, options.map(function (option) {
+            return React__default.createElement("option", { key: option.id, value: option.value }, option.text);
+        })),
+        React__default.createElement("p", { className: "my-1 mr-2" }, "entries")));
+};
+
+var TopRow = function (_a) {
+    var onSearchTextChange = _a.onSearchTextChange, onRowsPerPageChange = _a.onRowsPerPageChange;
+    return (React__default.createElement("div", { className: "row" },
+        React__default.createElement("div", { className: "col mb-3" },
+            React__default.createElement(RowsPerPageSelect, { onChange: onRowsPerPageChange })),
+        React__default.createElement("div", { className: "col mb-3" },
+            React__default.createElement(SearchField, { onChange: onSearchTextChange }))));
+};
+
+var filterData = function (data, searchText) {
+    var filteredData = data;
+    if (searchText.length > 0) {
+        filteredData = data.filter(function (row) {
+            return Object.keys(row).find(function (key) {
+                var value = row[key].toString();
+                return (value.toLowerCase().indexOf(searchText.toLocaleLowerCase()) !== -1);
+            });
+        });
     }
-    ImbaTableColumn.prototype.render = function () {
-        return React.createElement("div", null, "col");
-    };
-    return ImbaTableColumn;
-}(React.Component));
+    return filteredData;
+};
+var sortData = function (data, cols, sortColId, sortAsc) {
+    return data.sort(function (row1, row2) {
+        var sortCol = cols.find(function (col) {
+            return col.props.id === sortColId;
+        });
+        if (!sortCol) {
+            return 0;
+        }
+        var sortField = sortCol.props.field;
+        if (row1[sortField] < row2[sortField]) {
+            return (sortAsc ? -1 : 1);
+        }
+        else if (row1[sortField] > row2[sortField]) {
+            return (sortAsc ? 1 : -1);
+        }
+        return 0;
+    });
+};
+
+var ImbaTable = function (_a) {
+    var children = _a.children, data = _a.data;
+    var _b = React.useState(''), searchText = _b[0], setSearchText = _b[1];
+    var _c = React.useState(1), page = _c[0], setPage = _c[1];
+    var _d = React.useState(5), rowsPerPage = _d[0], setRowsPerPage = _d[1];
+    var _e = React.useState(1), sortColId = _e[0], setSortColId = _e[1];
+    var _f = React.useState(true), sortAsc = _f[0], setSortAsc = _f[1];
+    var colDefinitions = children.filter(function (child) {
+        return !(!child.props || !child.props.field || !child.props.label);
+    });
+    // Filtering
+    var filteredData = filterData(data, searchText);
+    // Sorting
+    var sortedData = sortData(filteredData, colDefinitions, sortColId, sortAsc);
+    // Paging
+    var pages = 1;
+    var startIndex = 0;
+    var endIndex = sortedData.length;
+    if (rowsPerPage > 0) {
+        pages = Math.ceil(sortedData.length / rowsPerPage);
+        startIndex = (page - 1) * rowsPerPage;
+        endIndex = startIndex + rowsPerPage;
+        endIndex = (endIndex > sortedData.length ? sortedData.length : endIndex);
+    }
+    var pagedData = sortedData.slice(startIndex, endIndex);
+    return (React__default.createElement("div", { className: "react-imba-table" },
+        React__default.createElement(TopRow, { onSearchTextChange: function (searchText) {
+                setSearchText(searchText);
+                setPage(1);
+            }, onRowsPerPageChange: function (rowsPerPage) {
+                setRowsPerPage(rowsPerPage);
+                setPage(1);
+            } }),
+        React__default.createElement("table", { className: "table table-striped" },
+            React__default.createElement("thead", null,
+                React__default.createElement("tr", null, colDefinitions.map(function (col) {
+                    return (React__default.createElement(ColumnHeader, { id: col.props.id, key: col.props.id, label: col.props.label, sortable: col.props.sortable, sortColId: sortColId, sortAsc: sortAsc, onClick: function (sortColId, sortAsc) {
+                            setSortColId(col.props.id);
+                            setSortAsc(sortAsc);
+                        } }));
+                }))),
+            React__default.createElement("tbody", null, pagedData.map(function (row) { return React__default.createElement("tr", { key: row.id }, colDefinitions.map(function (col) { return React__default.createElement(Cell, { key: col.props.id, columnProps: col.props, data: row[col.props.field] }); })); }))),
+        React__default.createElement(BottomRow, { pages: pages, currentPage: page, onPageSelected: function (page) { setPage(page); }, onPrevious: function () { if (page > 1) {
+                setPage(page - 1);
+            } }, onNext: function () { if (page < pages) {
+                setPage(page + 1);
+            } }, startIndex: startIndex + 1, endIndex: endIndex, numberOfEntries: sortedData.length })));
+};
+
+var ImbaTableColumn = function () {
+    return React__default.createElement("div", null, "col");
+};
 
 exports.ImbaTableColumn = ImbaTableColumn;
 exports.ImbaTableContentType = ImbaTableContentType$1;

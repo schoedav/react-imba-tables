@@ -7,8 +7,5 @@ interface Props {
     onPrevious: () => void;
     onNext: () => void;
 }
-declare class Pagination extends React.Component<Props> {
-    renderPageButtons(): JSX.Element[];
-    render(): JSX.Element;
-}
+declare const Pagination: React.FC<Props>;
 export default Pagination;

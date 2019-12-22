@@ -8,42 +8,40 @@ interface Props {
     onNext: () => void;
 }
 
-class Pagination extends React.Component<Props> {
+const Pagination: React.FC<Props> = ({pages, currentPage, onPageSelected, onPrevious, onNext}) => {
 
-    renderPageButtons() {
-        return Array.from(Array(this.props.pages).keys()).map((pageNumber, index) => {
+    const renderPageButtons = () => {
+        return Array.from(Array(pages).keys()).map((pageNumber, index) => {
 
-            const isActive = (pageNumber+1 === this.props.currentPage ? ' active' : '');
+            const isActive = (pageNumber+1 === currentPage ? ' active' : '');
 
             return (
-                <li key={index} className={`page-item${isActive}`} onClick={() => { this.props.onPageSelected(pageNumber+1); }}>
+                <li key={index} className={`page-item${isActive}`} onClick={() => { onPageSelected(pageNumber+1); }}>
                     <a className="page-link" href="#">{pageNumber+1}</a>
                 </li>
             );
         })
-    }
+    };
 
-    render() {
+    const prevDisabled = (currentPage <= 1 ? ' disabled' : '');
+    const nextDisabled = (currentPage >= pages ? ' disabled' : '');
 
-        const prevDisabled = (this.props.currentPage <= 1 ? ' disabled' : '');
-        const nextDisabled = (this.props.currentPage >= this.props.pages ? ' disabled' : '');
+    return (
+        <>
+            <nav aria-label="Page navigation example">
+                <ul className="pagination justify-content-end">
+                    <li className={`page-item${prevDisabled}`} onClick={() => { onPrevious(); }}>
+                        <a className="page-link" href="#">Previous</a>
+                    </li>
+                    {renderPageButtons()}
+                    <li className={`page-item${nextDisabled}`} onClick={() => { onNext(); }}>
+                        <a className="page-link" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </>
+    );
 
-        return (
-            <div>
-                <nav aria-label="Page navigation example">
-                    <ul className="pagination">
-                        <li className={`page-item${prevDisabled}`} onClick={() => { this.props.onPrevious(); }}>
-                            <a className="page-link" href="#">Previous</a>
-                        </li>
-                        {this.renderPageButtons()}
-                        <li className={`page-item${nextDisabled}`} onClick={() => { this.props.onNext(); }}>
-                            <a className="page-link" href="#">Next</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        );
-    }
-}
+};
 
 export default Pagination;

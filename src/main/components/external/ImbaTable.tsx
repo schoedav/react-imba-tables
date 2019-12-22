@@ -1,148 +1,101 @@
-import React, {ReactElement} from 'react'
-import SearchField from "../internal/SearchField";
-import Pagination from "../internal/Pagination";
+import React, {ReactElement, useState} from 'react'
 import ColumnHeader from "../internal/ColumnHeader";
 import Cell from "../internal/Cell";
-
-interface DataProps {
-    id: number;
-}
-
-interface State {
-    page: number;
-    rowsPerPage: number;
-    searchText: string;
-    sortColId: number;
-    sortAsc: boolean;
-}
+import BottomRow from "../internal/BottomRow";
+import TopRow from "../internal/TopRow";
+import {filterData, sortData} from "../../helpers/TableDataHelper";
 
 interface Props {
     data: any[];
     children: ReactElement[];
 }
 
-class ImbaTable extends React.Component<Props, State> {
+const ImbaTable: React.FC<Props> = ({children, data}) => {
 
-    constructor(props: Props) {
-        super(props);
+    const [searchText, setSearchText] = useState('');
+    const [page, setPage] = useState(1);
+    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [sortColId, setSortColId] = useState(1);
+    const [sortAsc, setSortAsc] = useState(true);
 
-        this.state = {
-            page: 1,
-            rowsPerPage: 5,
-            searchText: '',
-            sortColId: 1,
-            sortAsc: true,
-        }
+    const colDefinitions: ReactElement[] = children.filter((child: any) => {
+        return !(!child.props || !child.props.field || !child.props.label);
+    });
+
+    // Filtering
+    const filteredData = filterData(data, searchText);
+
+    // Sorting
+    const sortedData = sortData(filteredData, colDefinitions, sortColId, sortAsc);
+
+    // Paging
+    let pages = 1;
+    let startIndex = 0;
+    let endIndex = sortedData.length;
+    if(rowsPerPage > 0) {
+        pages = Math.ceil(sortedData.length / rowsPerPage);
+        startIndex = (page-1) * rowsPerPage;
+        endIndex = startIndex + rowsPerPage;
+        endIndex = (endIndex > sortedData.length ? sortedData.length : endIndex);
     }
 
-    componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>, snapshot?: any): void {
-        if(prevProps.data.length !== this.props.data.length) {
-            this.setState({page: 1});
-        }
-    }
+    const pagedData = sortedData.slice(startIndex, endIndex);
 
-    render() {
+    return (
+        <div className="react-imba-table">
 
-        const {children, data} = this.props;
+            <TopRow
+                onSearchTextChange={(searchText: string) => {
+                    setSearchText(searchText);
+                    setPage(1);
+                }}
+                onRowsPerPageChange={(rowsPerPage: number) => {
+                    setRowsPerPage(rowsPerPage);
+                    setPage(1);
+                }}
+            />
 
-        const cols: ReactElement[] = children.filter((child: any) => {
-            return !(!child.props || !child.props.field || !child.props.label);
-        });
+            <table className="table table-striped">
+                <thead>
+                <tr>
+                    {colDefinitions.map((col: ReactElement) => {
+                        return (
+                            <ColumnHeader
+                                id={col.props.id}
+                                key={col.props.id}
+                                label={col.props.label}
+                                sortable={col.props.sortable}
+                                sortColId={sortColId}
+                                sortAsc={sortAsc}
+                                onClick={(sortColId: number, sortAsc: boolean) => {
+                                    setSortColId(col.props.id);
+                                    setSortAsc(sortAsc);
+                                }}
+                            />
+                        );
+                    })}
+                </tr>
+                </thead>
+                <tbody>
+                    {pagedData.map((row: any) => <tr key={row.id}>
+                        {colDefinitions.map((col: ReactElement) => <Cell key={col.props.id} columnProps={col.props} data={row[col.props.field]} />)}
+                    </tr>)}
+                </tbody>
+            </table>
 
-        // Filtering
-        let filteredData = data;
-        if(this.state.searchText.length > 0) {
-            filteredData = data.filter((row: any) => {
-                return Object.keys(row).find((key: string) => {
-                    const value = row[key].toString();
-                    return (value.toLowerCase().indexOf(this.state.searchText.toLocaleLowerCase()) !== -1);
-                })
-            });
-        }
+            <BottomRow
+                pages={pages}
+                currentPage={page}
+                onPageSelected={(page: number) => { setPage(page) }}
+                onPrevious={() => { if(page > 1) { setPage(page-1); }}}
+                onNext={() => { if(page < pages) { setPage(page+1); }}}
+                startIndex={startIndex+1}
+                endIndex={endIndex}
+                numberOfEntries={sortedData.length}
+            />
 
-        // Sorting
-        const sortedData = filteredData.sort((row1: any, row2: any) => {
-            const sortCol = cols.find((col) => {
-                return col.props.id === this.state.sortColId;
-            });
-            if(!sortCol) {
-                return 0;
-            }
-            const sortField: string = sortCol.props.field;
-            if(row1[sortField] < row2[sortField]) {
-                return (this.state.sortAsc ? -1 : 1);
-            } else if(row1[sortField] > row2[sortField]) {
-                return (this.state.sortAsc ? 1 : -1);
-            }
-            return 0;
-        });
-
-        // Paging
-        const pages = Math.ceil(sortedData.length / this.state.rowsPerPage);
-        const startIndex = (this.state.page-1) * this.state.rowsPerPage;
-        let endIndex = startIndex + this.state.rowsPerPage;
-        if (endIndex > data.length) {
-            endIndex = data.length;
-        }
-        const pagedData = sortedData.slice(startIndex, endIndex);
-
-        return (
-            <div className="react-imba-table">
-                <SearchField
-                    onChange={ (searchText: string) => {
-                        this.setState({searchText: searchText, page: 1});
-                    }}
-                />
-
-                <table className="table table-striped">
-                    <thead>
-                    <tr>
-                        {cols.map((col: ReactElement) => {
-                            return (
-                                <ColumnHeader
-                                    id={col.props.id}
-                                    key={col.props.id}
-                                    label={col.props.label}
-                                    sortable={col.props.sortable}
-                                    sortColId={this.state.sortColId}
-                                    sortAsc={this.state.sortAsc}
-                                    onClick={(sortColId: number, sortAsc: boolean) => {
-                                        this.setState({sortColId: col.props.id, sortAsc: sortAsc})
-                                    }}
-                                />
-                            );
-                        })}
-                    </tr>
-                    </thead>
-                    <tbody>
-                        {pagedData.map((row: any) => <tr key={row.id}>
-                            {cols.map((col: ReactElement) => <Cell key={col.props.id} columnProps={col.props} data={row[col.props.field]} />)}
-                        </tr>)}
-                    </tbody>
-                </table>
-
-                <Pagination
-                    pages={pages}
-                    currentPage={this.state.page}
-                    onPageSelected={(page: number) => {
-                        this.setState({page: page})
-                    }}
-                    onPrevious={() => {
-                        if(this.state.page > 1) {
-                            this.setState({page: this.state.page-1})
-                        }
-                    }}
-                    onNext={() => {
-                        if(this.state.page < pages) {
-                            this.setState({page: this.state.page+1})
-                        }
-                    }}
-                />
-
-                Showing Page {this.state.page} of {pages}
-            </div>
-        );
-    }
-}
+        </div>
+    );
+};
 
 export default ImbaTable;

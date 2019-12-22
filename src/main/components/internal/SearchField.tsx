@@ -4,21 +4,18 @@ interface Props {
     onChange: (text: string) => void;
 }
 
-class SearchField extends React.Component<Props> {
+const SearchField: React.FC<Props> = ({onChange}) => {
 
-    render() {
-
-        return (
-            <div>
-                <input
-                    type="email"
-                    className="form-control"
-                    placeholder="Search..."
-                    onChange={(event) => { this.props.onChange(event.target.value); }}
-                />
-            </div>
-        );
-    }
-}
+    return (
+        <div>
+            <input
+                type="email"
+                className="form-control"
+                placeholder="Search..."
+                onChange={(event) => { onChange(event.target.value); }}
+            />
+        </div>
+    );
+};
 
 export default SearchField;

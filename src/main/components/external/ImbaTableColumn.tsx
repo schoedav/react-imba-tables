@@ -10,11 +10,8 @@ export interface ImbaTableColumnProps {
     dateFormat?: string;
 }
 
-class ImbaTableColumn extends React.Component<ImbaTableColumnProps> {
-
-    render() {
-        return <div>col</div>
-    }
-}
+const ImbaTableColumn: React.FC<ImbaTableColumnProps> = () => {
+    return <div>col</div>
+};
 
 export default ImbaTableColumn;
